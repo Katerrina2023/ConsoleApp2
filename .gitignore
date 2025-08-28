@@ -1,0 +1,15 @@
+# Папка с временными файлами Visual Studio
+.vs/
+
+# Папки сборки
+bin/
+obj/
+
+# Кэш NuGet
+packages/
+
+# Пользовательские настройки проектов
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
