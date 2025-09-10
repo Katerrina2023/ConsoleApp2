@@ -9,7 +9,12 @@
 
 using System.Xml.Linq;
 
-class Animal
+interface IPlayable
+{
+    void Play();
+}
+
+public abstract class Animal
 {
     public readonly int ID;
     public int Age = 1;
@@ -41,12 +46,54 @@ class Animal
         instances++;
     }
     public Animal() { instances++; }
+
+    public abstract void MakeSound();
+    public virtual void Eat()
+    {
+        Console.WriteLine("Животное ест");
+    }
+
 }
 
 
-class Mlekop : Animal{ }
+class Mlekop : Animal{
+    public override void MakeSound()
+    {
+        Console.WriteLine("Млекопитающее издаёт звук");
+    }
+}
 
-class Dog : Mlekop { }
+class Dog : Mlekop, IPlayable {
+    public override void MakeSound()
+    {
+        Console.WriteLine("Гав-гав");
+    }
+
+    public override void Eat()
+    {
+        Console.WriteLine("Собака ест корм");
+    }
+
+    public void Play()
+    {
+        Console.WriteLine("Собака играет с мячом");
+    }
+
+}
+
+public static class Extensions
+{
+    public static void Describe(this Animal animal)
+    {
+        Console.WriteLine($"ID: {animal.ID}, Age: {animal.Age}, Color: {animal.Color}");
+    }
+
+    public static string AddDots(this string str)
+    {
+        return "..." + str;
+    }
+}
+
 class Catty : Mlekop { }
 
 
@@ -58,10 +105,7 @@ class Program
 {
     static void Main(string[] args)
     {
-        var an1 = new Animal();
-        var an3 = new Animal(4);
-        var an2 = new Animal("black",5,6);
-        var an5 = new Animal("k", 4, 9);
+  
 
         Animal.Print();
 
@@ -71,5 +115,10 @@ class Program
         var tigr1 = new Tigr();
         var lev1 = new Lev();
 
+
+        string a = "abc";
+        string b = a.AddDots();
+
+        dog1.Describe();
     }
 }
